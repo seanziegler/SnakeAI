@@ -10,13 +10,12 @@ class Snake:
         self.direction = 'RIGHT'
         self.coordinates = [(400, 300)]
         self.color = (255,255,255)
-        self.alive = False
+        self.alive = True
 
     def eatApple(self):
         self.length += 1
-        print(ghostPosition)
         self.coordinates.append(ghostPosition)
-        print(self.coordinates)
+
 
     def move(self):
         global ghostPosition
@@ -36,16 +35,14 @@ class Snake:
 
         self.coordinates[0] = (headX, headY)
 
-        print(self.coordinates)
-
-    def die(self):
-        if self.coordinates[0][1] <= 0 or self.coordinates[0][1] >= 800 or self.coordinates[1][1] <= 0 or self.coordinates[1][1] >= 400
+        if self.coordinates[0][0] <= 0 or self.coordinates[0][0] >= 800 or self.coordinates[0][1] <= 0 or self.coordinates[0][1] >= 400:
             self.alive = False
+
+
 
 
     def draw(self, screen):
         for coordinate in self.coordinates:
             x,y = coordinate
-            #print(self.coordinates[0])
             pygame.draw.rect(screen, self.color, pygame.Rect(x, y, 16, 16 ))
         self.move()

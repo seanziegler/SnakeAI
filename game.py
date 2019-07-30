@@ -12,17 +12,19 @@ class Game:
 
     def run(self, screen):
         running = True
-
-        font = pygame.font.SysFont("arial", 18)
         score = 0
-        text = font.render('Score: %s' % score, True, (0, 255, 0))
+
+        scoreFont = pygame.font.SysFont("arial", 18)
+        lossFont = pygame.font.SysFont("arial", 72)
+
+        scoreText = scoreFont.render('Score: %s' % score, True, (0, 255, 0))
+        lossText = lossFont.render('You died', True, (0, 255, 0))
 
         clock = pygame.time.Clock()
         snake = Snake()
         apple = Apple()
 
-        while running and snake.alive:
-
+        while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                         running = False
@@ -41,16 +43,21 @@ class Game:
 
                 pygame.event.clear()
 
+            if snake.alive:
                 if apple.coordinates == snake.coordinates:
                     snake.eatApple()
                     apple.eaten(screen)
                     score += 1
 
                 screen.fill((0,0,0))
-                screen.blit(text, (25, 10))
+                screen.blit(scoreText, (25, 10))
                 apple.draw(screen)
                 snake.draw(screen)
-                clock.tick(4)
+                clock.tick(6)
+                pygame.display.flip()
+
+            if not snake.alive:
+                screen.blit(lossText, (300, 250))
                 pygame.display.update()
 
 if __name__ == '__main__':
