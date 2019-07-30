@@ -18,28 +18,35 @@ class Snake:
 
 
     def move(self):
+        self.collideWithWall()
+        print(self.coordinates)
         global ghostPosition
         ghostPosition = self.coordinates[-1]
         for index in range(self.length -1, 0, -1):
             self.coordinates[index] = self.coordinates[index  - 1]
 
         headX, headY = self.coordinates[0]
-        if self.direction == "UP":
+        if self.direction == 'UP' and self.direction != 'DOWN':
             headY -= self.speed
-        if self.direction == "DOWN":
+        if self.direction == 'DOWN' and self.direction != 'UP':
             headY += self.speed
-        if self.direction == "RIGHT":
+        if self.direction == 'RIGHT' and self.direction != 'LEFT':
             headX += self.speed
-        if self.direction == "LEFT":
+        if self.direction == 'LEFT' and self.direction != 'RIGHT':
             headX -= self.speed
 
         self.coordinates[0] = (headX, headY)
+        self.collideWithSnake()
 
+
+
+    def collideWithWall(self):
         if self.coordinates[0][0] <= 0 or self.coordinates[0][0] >= 800 or self.coordinates[0][1] <= 0 or self.coordinates[0][1] >= 400:
             self.alive = False
 
-
-
+    def collideWithSnake(self):
+        if self.coordinates[0] in self.coordinates[1:]:
+            self.alive = False
 
     def draw(self, screen):
         for coordinate in self.coordinates:
