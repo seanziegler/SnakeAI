@@ -17,7 +17,6 @@ class Game:
         scoreFont = pygame.font.SysFont("arial", 18)
         lossFont = pygame.font.SysFont("arial", 72)
 
-        scoreText = scoreFont.render('Score: %s' % score, True, (0, 255, 0))
         lossText = lossFont.render('You died', True, (0, 255, 0))
 
         clock = pygame.time.Clock()
@@ -30,13 +29,13 @@ class Game:
                         running = False
 
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_UP:
+                    if event.key == pygame.K_UP and snake.direction != 'DOWN':
                         snake.direction = 'UP'
-                    if event.key == pygame.K_DOWN:
+                    if event.key == pygame.K_DOWN and snake.direction != 'UP':
                         snake.direction = 'DOWN'
-                    if event.key == pygame.K_RIGHT:
+                    if event.key == pygame.K_RIGHT and snake.direction != 'LEFT':
                         snake.direction = 'RIGHT'
-                    if event.key == pygame.K_LEFT:
+                    if event.key == pygame.K_LEFT and snake.direction != 'RIGHT':
                         snake.direction = 'LEFT'
                     if event.key == pygame.K_SPACE:
                         snake.eatApple()
@@ -44,16 +43,17 @@ class Game:
                 pygame.event.clear()
 
             if snake.alive:
-                if apple.coordinates == snake.coordinates:
+                if apple.rect.colliderect(snake.rect):
                     snake.eatApple()
-                    apple.eaten(screen)
+                    apple.eaten()
                     score += 1
 
                 screen.fill((0,0,0))
+                scoreText = scoreFont.render('Score: %s' % score, True, (0, 255, 0))
                 screen.blit(scoreText, (25, 10))
                 apple.draw(screen)
                 snake.draw(screen)
-                clock.tick(6)
+                clock.tick(5)
                 pygame.display.flip()
 
             if not snake.alive:
