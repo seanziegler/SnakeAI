@@ -37,8 +37,8 @@ class Game:
                         snake.direction = 'RIGHT'
                     if event.key == pygame.K_LEFT and snake.direction != 'RIGHT':
                         snake.direction = 'LEFT'
-                    if event.key == pygame.K_SPACE:
-                        snake.eatApple()
+                    if event.key == pygame.K_r and not snake.alive:
+                        Game()
 
                 pygame.event.clear()
 
