@@ -1,6 +1,7 @@
 import pygame
 from snake import Snake
 from apple import Apple
+import threading
 
 class Game:
 
@@ -9,10 +10,10 @@ class Game:
         self.WINDOW_WIDTH = 100
         pygame.init()
         pygame.display.set_caption('SnakeAI')
-        screen = pygame.display.set_mode((self.WINDOW_HEIGHT,self.WINDOW_WIDTH))
-        self.run(screen)
+        self.screen = pygame.display.set_mode((self.WINDOW_HEIGHT,self.WINDOW_WIDTH))
+        self.run()
 
-    def run(self, screen):
+    def run(self):
         running = True
         score = 0
 
@@ -50,16 +51,16 @@ class Game:
                     apple.eaten()
                     score += 1
 
-                screen.fill((0,0,0))
+                self.screen.fill((0,0,0))
                 #scoreText = scoreFont.render('Score: %s' % score, True, (0, 255, 0))
-                #screen.blit(scoreText, (25, 10))
-                apple.draw(screen)
-                snake.draw(screen)
+                #self.screen.blit(scoreText, (25, 10))
+                apple.draw(self.screen)
+                snake.draw(self.screen)
                 clock.tick(60)
                 pygame.display.flip()
 
             if not snake.alive:
-                #screen.blit(lossText, (300, 250))
+                #self.screen.blit(lossText, (300, 250))
                 pygame.display.update()
 
 if __name__ == '__main__':

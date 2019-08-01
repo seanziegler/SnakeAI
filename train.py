@@ -18,3 +18,13 @@ class Trainer:
 
         for x,y in appleCoordinates:
             grid[x, y] = 3 # mark apple as 3
+        return grid
+
+    def simulate(self, numberToSimulate):
+        pass
+
+    def select(self, numberToSelect):
+        pass
+
+    def mutate(self, mutateRate):
+        pass
