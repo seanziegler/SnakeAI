@@ -6,10 +6,10 @@ class Snake:
 
     def __init__(self):
         self.length = 1
-        self.speed = 20
-        self.size = 16
+        self.speed = 1
+        self.size = 1
         self.direction = 'RIGHT'
-        self.coordinates = [(400, 300)]
+        self.coordinates = [(50, 50)]
         self.color = (255,255,255)
         self.alive = True
         self.rect = pygame.Rect(self.coordinates[0][0], self.coordinates[0][1], self.size, self.size)
@@ -39,12 +39,11 @@ class Snake:
         self.rect = pygame.Rect(self.coordinates[0][0], self.coordinates[0][1], self.size, self.size)
 
     def collideWithWall(self):
-        if self.coordinates[0][0] <= 0 or self.coordinates[0][0] >= 800 or self.coordinates[0][1] <= 0 or self.coordinates[0][1] >= 600:
+        if self.coordinates[0][0] <= 0 or self.coordinates[0][0] >= 100 or self.coordinates[0][1] <= 0 or self.coordinates[0][1] >= 100:
             self.alive = False
 
     def collideWithSnake(self):
         if self.coordinates[0] in self.coordinates[1:]:
-            print('snake')
             self.alive = False
 
     def draw(self, screen):

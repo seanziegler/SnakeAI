@@ -5,9 +5,11 @@ from apple import Apple
 class Game:
 
     def __init__(self):
+        self.WINDOW_HEIGHT = 100
+        self.WINDOW_WIDTH = 100
         pygame.init()
         pygame.display.set_caption('SnakeAI')
-        screen = pygame.display.set_mode((800,600))
+        screen = pygame.display.set_mode((self.WINDOW_HEIGHT,self.WINDOW_WIDTH))
         self.run(screen)
 
     def run(self, screen):
@@ -49,15 +51,15 @@ class Game:
                     score += 1
 
                 screen.fill((0,0,0))
-                scoreText = scoreFont.render('Score: %s' % score, True, (0, 255, 0))
-                screen.blit(scoreText, (25, 10))
+                #scoreText = scoreFont.render('Score: %s' % score, True, (0, 255, 0))
+                #screen.blit(scoreText, (25, 10))
                 apple.draw(screen)
                 snake.draw(screen)
-                clock.tick(5)
+                clock.tick(60)
                 pygame.display.flip()
 
             if not snake.alive:
-                screen.blit(lossText, (300, 250))
+                #screen.blit(lossText, (300, 250))
                 pygame.display.update()
 
 if __name__ == '__main__':
